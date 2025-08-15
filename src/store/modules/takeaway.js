@@ -6,17 +6,23 @@ const foodsStore = createSlice({
     name: 'foods',
     initialState: {
         //goodslist
-        foodsList: []
+        foodsList: [],
+        //Menu active
+        activeIndex: 0,
     },
     reducers :{
         setFoodsList(state, action){
             state.foodsList = action.payload;
+        },
+        //Change activeIndex
+        changeActiveIndex(state, action) {
+            state.activeIndex = action.payload;
         }
     }
 })
 
 //asynchronous get data
-const{ setFoodsList } = foodsStore.actions;
+const{ setFoodsList, changeActiveIndex } = foodsStore.actions;
 const fetchFoodsList = () => {
     return async (dispatch) => {
     //editing async logioc
@@ -25,7 +31,7 @@ const fetchFoodsList = () => {
     }
 }
 
-export { fetchFoodsList }
+export { fetchFoodsList, changeActiveIndex }
 
 const reducer = foodsStore.reducer;
 
