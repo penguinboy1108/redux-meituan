@@ -9,6 +9,8 @@ const foodsStore = createSlice({
         foodsList: [],
         //Menu active
         activeIndex: 0,
+        // Cart
+        cartList:[],
     },
     reducers :{
         setFoodsList(state, action){
@@ -17,12 +19,20 @@ const foodsStore = createSlice({
         //Change activeIndex
         changeActiveIndex(state, action) {
             state.activeIndex = action.payload;
-        }
+        },
+        addCart(state, action) {
+            const item = state.cartList.find(item => item.id === action.payload.id);
+            if (item) {
+                item.count += 1;
+            } else {
+                state.cartList.push({ ...action.payload, count: 1 });
+            }
+        },
     }
 })
 
 //asynchronous get data
-const{ setFoodsList, changeActiveIndex } = foodsStore.actions;
+const{ setFoodsList, changeActiveIndex, addCart } = foodsStore.actions;
 const fetchFoodsList = () => {
     return async (dispatch) => {
     //editing async logioc
@@ -31,7 +41,7 @@ const fetchFoodsList = () => {
     }
 }
 
-export { fetchFoodsList, changeActiveIndex }
+export { fetchFoodsList, changeActiveIndex, addCart }
 
 const reducer = foodsStore.reducer;
 
