@@ -21,7 +21,7 @@ const App = () => {
 
   //get foodsList and render list
   //1.useSelector
-  const { foodsList } = useSelector(state => state.foods);
+  const { foodsList, activeIndex } = useSelector(state => state.foods);
   // console.log(foodsList);
 
   return (
@@ -37,9 +37,9 @@ const App = () => {
           <div className="list-content">
             <div className="goods-list">
               {/* 外卖商品列表 */}
-              {foodsList.map(item => {
+              {foodsList.map((item, index) => {
                 return (
-                  <FoodsCategory
+                  activeIndex === index && <FoodsCategory
                     key={item.tag}
                     // 列表标题
                     name={item.name}
